@@ -26,3 +26,5 @@ replay_pid*
 #ignore .idea, target files and folder
 .idea/
 target/
+*mvn*
+HELP.md
