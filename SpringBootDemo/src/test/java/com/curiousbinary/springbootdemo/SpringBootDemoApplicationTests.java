@@ -1,4 +1,4 @@
-package com.curiousbinary.SpringBootDemo;
+package com.curiousbinary.springbootdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,7 @@
-package com.curiousbinary.SpringBootDemo.service;
+package com.curiousbinary.springbootdemo.service;
 
-import com.curiousbinary.SpringBootDemo.model.Department;
-import com.curiousbinary.SpringBootDemo.repository.DepartmentRepository;
+import com.curiousbinary.springbootdemo.model.Department;
+import com.curiousbinary.springbootdemo.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +54,17 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
 
         return departmentRepository.save(depDB);
+    }
+
+    @Override
+    public Department getDepartmentByName(String deptName) {
+        //return departmentRepository.findByDepartmentName(deptName);
+        return departmentRepository.findByDepartmentNameIgnoreCase(deptName);
+    }
+
+    @Override
+    public Department getFilteredresults(String deptName) {
+        return departmentRepository.findFilteredRecords(deptName);
     }
 
 }

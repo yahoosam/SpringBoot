@@ -1,4 +1,4 @@
-package com.curiousbinary.SpringBootDemo;
+package com.curiousbinary.springbootdemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
