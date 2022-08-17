@@ -1,5 +1,6 @@
 package com.curiousbinary.springbootdemo.service;
 
+import com.curiousbinary.springbootdemo.error.DepartmentNotFoundException;
 import com.curiousbinary.springbootdemo.model.Department;
 import com.curiousbinary.springbootdemo.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -25,18 +27,30 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department getDepartment(Long deptId) {
-        return departmentRepository.findById(deptId).get();
+    public Department getDepartment(Long deptId) throws DepartmentNotFoundException {
+        Optional<Department> department = departmentRepository.findById(deptId);
+        if (!department.isPresent()) {
+            throw new DepartmentNotFoundException("Department Not available...");
+        }
+        return department.get();
     }
 
     @Override
-    public void deleteDepartment(Long deptId) {
+    public void deleteDepartment(Long deptId) throws DepartmentNotFoundException {
+        Optional<Department> deparment = departmentRepository.findById(deptId);
+        if (!deparment.isPresent()) {
+            throw new DepartmentNotFoundException("Department Not available...");
+        }
         departmentRepository.deleteById(deptId);
     }
 
     @Override
-    public Department updateDepartment(Department department, Long deptId) {
-        Department depDB = departmentRepository.findById(deptId).get();
+    public Department updateDepartment(Department department, Long deptId) throws DepartmentNotFoundException {
+        Optional<Department> deparment = departmentRepository.findById(deptId);
+        if (!deparment.isPresent()) {
+            throw new DepartmentNotFoundException("Department Not available...");
+        }
+        Department depDB = deparment.get();
 
         if (Objects.nonNull(department.getDepartmentCode()) &&
                 !"".equalsIgnoreCase(department.getDepartmentCode())) {
@@ -57,14 +71,22 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department getDepartmentByName(String deptName) {
-        //return departmentRepository.findByDepartmentName(deptName);
-        return departmentRepository.findByDepartmentNameIgnoreCase(deptName);
+    public Department getDepartmentByName(String deptName) throws DepartmentNotFoundException {
+        //Optional<Department> department = departmentRepository.findByDepartmentName(deptName);
+        Optional<Department> department = departmentRepository.findByDepartmentNameIgnoreCase(deptName);
+        if (!department.isPresent()) {
+            throw new DepartmentNotFoundException("Department Not available...");
+        }
+        return department.get();
     }
 
     @Override
-    public Department getFilteredresults(String deptName) {
-        return departmentRepository.findFilteredRecords(deptName);
+    public Department getFilteredresults(String deptName) throws DepartmentNotFoundException {
+        Optional<Department> department = departmentRepository.findFilteredRecords(deptName);
+        if (!department.isPresent()) {
+            throw new DepartmentNotFoundException("Department Not available...");
+        }
+        return department.get();
     }
 
 }

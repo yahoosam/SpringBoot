@@ -1,5 +1,6 @@
 package com.curiousbinary.springbootdemo.controller;
 
+import com.curiousbinary.springbootdemo.error.DepartmentNotFoundException;
 import com.curiousbinary.springbootdemo.model.Department;
 import com.curiousbinary.springbootdemo.service.DepartmentService;
 import org.slf4j.Logger;
@@ -31,31 +32,31 @@ public class DepartmentController {
     }
 
     @GetMapping("/getdepartment/{id}")
-    public Department getDepartment(@PathVariable("id") Long deptId) {
+    public Department getDepartment(@PathVariable("id") Long deptId) throws DepartmentNotFoundException {
         LOGGER.info("Inside getDepartment controller");
         return departmentService.getDepartment(deptId);
     }
 
     @PutMapping("/updatedepartment/{id}")
-    public Department updateDepartment(@RequestBody Department department, @PathVariable("id") Long deptId) {
+    public Department updateDepartment(@RequestBody Department department, @PathVariable("id") Long deptId) throws DepartmentNotFoundException {
         LOGGER.info("Inside updateDepartment controller");
         return departmentService.updateDepartment(department, deptId);
     }
 
     @DeleteMapping("/deletedepartment/{id}")
-    public void deleteDepartment(@PathVariable("id") Long deptId) {
+    public void deleteDepartment(@PathVariable("id") Long deptId) throws DepartmentNotFoundException {
         LOGGER.info("Inside deleteDepartment controller");
         departmentService.deleteDepartment(deptId);
     }
 
     @GetMapping("getdepartmentbyname/{name}")
-    public Department getDepartmentByName(@PathVariable("name") String deptName) {
+    public Department getDepartmentByName(@PathVariable("name") String deptName) throws DepartmentNotFoundException {
         LOGGER.info("Inside getDepartmentByName controller");
         return departmentService.getDepartmentByName(deptName);
     }
 
     @GetMapping("getfilteredrecords/{name}")
-    public Department getFilteredResults(@PathVariable("name") String deptName) {
+    public Department getFilteredResults(@PathVariable("name") String deptName) throws DepartmentNotFoundException {
         LOGGER.info("Inside getFilteredResults controller");
         return departmentService.getFilteredresults(deptName);
     }
