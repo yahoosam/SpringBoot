@@ -18,4 +18,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(errorMessage);
     }
+
+    @ExceptionHandler(DepartmentAlreadyExistException.class)
+    public ResponseEntity<ErrorMessage> departmentAlreadyExistException(DepartmentAlreadyExistException departmentAlreadyExistException, WebRequest request) {
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.NOT_ACCEPTABLE, departmentAlreadyExistException.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                .body(errorMessage);
+    }
 }

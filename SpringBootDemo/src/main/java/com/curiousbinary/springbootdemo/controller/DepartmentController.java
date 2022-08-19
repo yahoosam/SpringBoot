@@ -1,5 +1,6 @@
 package com.curiousbinary.springbootdemo.controller;
 
+import com.curiousbinary.springbootdemo.error.DepartmentAlreadyExistException;
 import com.curiousbinary.springbootdemo.error.DepartmentNotFoundException;
 import com.curiousbinary.springbootdemo.model.Department;
 import com.curiousbinary.springbootdemo.service.DepartmentService;
@@ -20,7 +21,7 @@ public class DepartmentController {
     private final Logger LOGGER = LoggerFactory.getLogger(DepartmentController.class);
 
     @PostMapping("/savedepartment")
-    public Department saveDepartment(@Valid @RequestBody Department department) {
+    public Department saveDepartment(@Valid @RequestBody Department department) throws DepartmentAlreadyExistException {
         LOGGER.info("Inside saveDepartment controller");
         return departmentService.saveDepartment(department);
     }
@@ -38,7 +39,8 @@ public class DepartmentController {
     }
 
     @PutMapping("/updatedepartment/{id}")
-    public Department updateDepartment(@RequestBody Department department, @PathVariable("id") Long deptId) throws DepartmentNotFoundException {
+    public Department updateDepartment(@RequestBody Department department, @PathVariable("id") Long deptId)
+            throws DepartmentNotFoundException, DepartmentAlreadyExistException {
         LOGGER.info("Inside updateDepartment controller");
         return departmentService.updateDepartment(department, deptId);
     }

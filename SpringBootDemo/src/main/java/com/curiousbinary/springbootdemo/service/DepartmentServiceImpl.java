@@ -1,5 +1,6 @@
 package com.curiousbinary.springbootdemo.service;
 
+import com.curiousbinary.springbootdemo.error.DepartmentAlreadyExistException;
 import com.curiousbinary.springbootdemo.error.DepartmentNotFoundException;
 import com.curiousbinary.springbootdemo.model.Department;
 import com.curiousbinary.springbootdemo.repository.DepartmentRepository;
@@ -17,7 +18,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentRepository departmentRepository;
 
     @Override
-    public Department saveDepartment(Department department) {
+    public Department saveDepartment(Department department) throws DepartmentAlreadyExistException {
+        Optional<Department> dept = departmentRepository.checkDepartment(department.getDepartmentCode(),
+                department.getDepartmentName());
+
+        if (dept.isPresent()) {
+            throw new DepartmentAlreadyExistException("Department already present...");
+        }
         return departmentRepository.save(department);
     }
 
@@ -45,12 +52,21 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department updateDepartment(Department department, Long deptId) throws DepartmentNotFoundException {
-        Optional<Department> deparment = departmentRepository.findById(deptId);
-        if (!deparment.isPresent()) {
+    public Department updateDepartment(Department department, Long deptId)
+            throws DepartmentNotFoundException, DepartmentAlreadyExistException {
+        Optional<Department> dept = departmentRepository.findById(deptId);
+        if (!dept.isPresent()) {
             throw new DepartmentNotFoundException("Department Not available...");
         }
-        Department depDB = deparment.get();
+
+        Optional<Department> dept2 = departmentRepository.checkDepartmentWithId(department.getDepartmentCode(),
+                department.getDepartmentName(), deptId);
+
+        if (dept2.isPresent()) {
+            throw new DepartmentAlreadyExistException("Data already present...");
+        }
+
+        Department depDB = dept.get();
 
         if (Objects.nonNull(department.getDepartmentCode()) &&
                 !"".equalsIgnoreCase(department.getDepartmentCode())) {
