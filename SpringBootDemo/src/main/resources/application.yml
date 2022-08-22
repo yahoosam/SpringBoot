@@ -1,0 +1,15 @@
+server:
+  port: '8000'
+spring:
+  datasource:
+    username: dcbappuser
+    password: dcbapp#2022
+    url: jdbc:mysql://localhost:3306/dcbapp
+    driverclassname: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+ui:
+  msg1: welcome to milkyway galaxy!!
+  msg2: my nearest friend is andromeda!!
