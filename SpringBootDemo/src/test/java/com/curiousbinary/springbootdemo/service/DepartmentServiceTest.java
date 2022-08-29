@@ -13,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class DepartmentServiceTest {
@@ -35,6 +35,18 @@ class DepartmentServiceTest {
 
         Mockito.when(departmentRepository.findByDepartmentNameIgnoreCase("IT"))
                 .thenReturn(Optional.ofNullable(department));
+        Mockito.when(departmentRepository.findById(1L))
+                .thenReturn(Optional.ofNullable(department));
+    }
+
+    @Test
+    @DisplayName("departmentService.getDepartment")
+    public void whenValidDepartmentID_thenDepartmentShouldFound() throws DepartmentNotFoundException {
+        Long deptId = 1L;
+
+        Department found = departmentService.getDepartment(deptId);
+
+        assertEquals(deptId, found.getDepartmentId());
     }
 
     @Test

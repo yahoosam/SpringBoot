@@ -12,9 +12,12 @@ public class HelloController {
     @Value("${ui.msg2}")
     private String msg2;
 
+    @Value("${ui.msg3}")
+    private String msg3;
+
     @GetMapping("/")
     public String helloWorld() {
-        return msg1 + " " + msg2;
+        return msg1 + " " + msg2 + " " + msg3;
     }
 
 }

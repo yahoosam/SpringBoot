@@ -11,3 +11,7 @@ spring:
   h2:
     console:
       enabled: 'true'
+ui:
+  msg1: ''
+  msg2: ''
+ENV_MSG: ''
