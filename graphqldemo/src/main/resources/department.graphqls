@@ -1,0 +1,15 @@
+type Department {
+    departmentId: Int
+    departmentName: String
+    departmentAddress: String
+    departmentCode: String
+}
+
+type Query {
+    getAllDepartments: [Department]
+    getDepartment(departmentId: Int): Department
+}
+
+schema {
+    query: Query
+}
