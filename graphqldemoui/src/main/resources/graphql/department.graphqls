@@ -4,11 +4,12 @@ schema {
 
 type Query {
     getAllDepartments: [Department]
-    getDepartment(departmentId: Int): Department
+    getDepartment(id: Int): Department
+    getDepartments(departmentCode: String): [Department]
 }
 
 type Department {
-    departmentId: Int
+    id: ID!
     departmentName: String
     departmentAddress: String
     departmentCode: String
