@@ -17,9 +17,9 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
     @Value("${spring.datasource.url}")
     private String url;
-    @Value("${pgusername}")
+    @Value("${db.pgusername}")
     private String username;
-    @Value("${pgpassword}")
+    @Value("${db.pgpassword}")
     private String password;
     @Value("${spring.jpa.hibernate.default_schema}")
     private String schema;
