@@ -1,0 +1,25 @@
+server:
+  port: '8000'
+
+spring:
+  datasource:
+    url: jdbc:postgresql://172.21.100.233:5432/appdb
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+      formate_sql: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      default_schema: public
+    show-sql: 'true'
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+secrets:
+  dbconfig: /mnt/d/Workspace/Vault/dbsecrets.json
